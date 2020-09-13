@@ -34,7 +34,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ProfileItem = ({
-  profile,
+  profile: {
+    name, 
+    user, 
+    username, 
+    profileImage
+  },
 }) => {
   const classes = useStyles();
 
@@ -44,8 +49,8 @@ const ProfileItem = ({
         <CardHeader
           avatar={
             <Avatar
-              src={`http://localhost:5000/${profile.profileImage}`}
-              alt={profile.name}
+              src={`http://localhost:5000/${profileImage}`}
+              alt={name}
               className={classes.large}
             />
           }
@@ -55,13 +60,13 @@ const ProfileItem = ({
           classes={{action: classes.action}}
 
           action={
-            <ProfileFollowing profile={profile}/>
+            <Button href={`/profile/${user._id}`} color="primary" variant="contained">Go to Profile</Button>
           }
 
           titleTypographyProps={{variant: 'h6', color: "primary"}}
-          title={<Link href={`/profile/${profile.user._id}`} underline={'none'} color="textPrimary">{profile.name}</Link>}
+          title={<Link href={`/profile/${user._id}`} underline={'none'} color="textPrimary">{name}</Link>}
           subheaderTypographyProps={{variant: 'p'}}
-          subheader={<Link href={`/profile/${profile.user._id}`} underline={'none'} color="textSecondary"> @{profile.user.username}</Link>}
+          subheader={`@${user.username}`}
         />
       </Card>
     </Container>
