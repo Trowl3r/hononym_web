@@ -63,8 +63,8 @@ const ProfileItem = ({
             <Button href={`/profile/${user._id}`} color="primary" variant="contained">Go to Profile</Button>
           }
 
-          titleTypographyProps={{variant: 'h6', color: "primary"}}
-          title={<Link href={`/profile/${user._id}`} underline={'none'} color="textPrimary">{name}</Link>}
+          titleTypographyProps={{variant: 'h6', color: "textPrimary"}}
+          title={name}
           subheaderTypographyProps={{variant: 'p'}}
           subheader={`@${user.username}`}
         />
