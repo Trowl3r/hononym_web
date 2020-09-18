@@ -5,19 +5,24 @@ import PostItem from "./PostItem";
 import PostForm from "./PostForm";
 import {getPosts} from "../../actions/post";
 
+//Material UI 
+import {Container, Typography} from "@material-ui/core";
+
 const Posts = ({getPosts, post: {posts}}) => {
     useEffect(() => {
         getPosts();
     }, [getPosts]);
 
     return (
-        <Fragment>
-            <h1>Posts</h1>
+        <Container component="main" maxWidth="sm">
+            <Typography variant="h6">
+                Posts
+            </Typography>
             <PostForm />
             {posts.map(post => (
                 <PostItem key={post._id} post={post} />
             ))}
-        </Fragment>
+        </Container>
     )
 }
 

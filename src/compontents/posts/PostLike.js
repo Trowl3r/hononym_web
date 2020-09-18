@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addLike, removeLike } from "../../actions/post";
 
+// Material UI
+import { IconButton, Typography } from "@material-ui/core";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+
 const PostLike = ({ addLike, removeLike, post: { _id, likes }, auth }) => {
   const [likeCount, setLikeCount] = useState(likes.length);
   const [updated, setUpdated] = useState(true);
-  const [text, setText] = useState("Like");
 
   useEffect(() => {
-    if(likes.some(like => like.user === auth.user._id)) {
-      setText("Unlike");
+    if (likes.some((like) => like.user === auth.user._id)) {
       setUpdated(false);
     }
   }, []);
@@ -21,21 +23,24 @@ const PostLike = ({ addLike, removeLike, post: { _id, likes }, auth }) => {
     if (updated) {
       addLike(_id);
       setLikeCount(likeCount + 1);
-      setText("Unlike");
       setUpdated(false);
     } else {
       removeLike(_id);
       setLikeCount(likeCount - 1);
-      setText("Like");
       setUpdated(true);
     }
   };
 
   return (
     <Fragment>
-      <button onClick={handleLikes}>{text}</button>
-
-      <h1>{likeCount}</h1>
+      <IconButton aria-label="Like" onClick={handleLikes}>
+        <FavoriteIcon
+          style={updated ? { color: "9E9E9E" } : { color: "#ff0000" }}
+        />
+      </IconButton>
+      <Typography variant="p">
+        {likeCount}
+      </Typography>
     </Fragment>
   );
 };

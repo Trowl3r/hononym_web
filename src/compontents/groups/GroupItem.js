@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
-
 //Material UI
 import { Avatar, CardHeader, Container, Card, Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";

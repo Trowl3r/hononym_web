@@ -6,7 +6,7 @@ import { getProfileById } from "../../actions/profile";
 import ProfileFollowing from "./ProfileFollowing";
 
 //Material UI
-import { Avatar, CardHeader, Container, Card } from "@material-ui/core";
+import { Avatar, CardHeader, Container, Card, CardContent } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -57,6 +57,9 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
                 subheaderTypographyProps={{variant: 'p'}}
                 subheader={`@${profile.user.username}`}
               />
+              <CardContent>
+                 
+              </CardContent>
             </Card>
           </Container>
         </Fragment>
