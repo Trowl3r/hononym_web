@@ -8,6 +8,10 @@ import CommentForm from "./CommentForm";
 import CommentItem from "./CommentItem";
 import { getPost } from "../../actions/post";
 
+//Material UI 
+import { Container } from "@material-ui/core";
+
+
 const Post = ({ getPost, post: { post, loading }, match }) => {
   useEffect(() => {
     getPost(match.params.id);
@@ -17,12 +21,14 @@ const Post = ({ getPost, post: { post, loading }, match }) => {
     <Spinner />
   ) : (
     <Fragment>
+      <Container component="main" maxWidth="sm">
       <Link to="/posts">Back to Posts</Link>
       <PostItem post={post} />
       <CommentForm postId={post._id} />
       {post.comments.map(comment => (
         <CommentItem key={comment._id} comment={comment} postId={post._id} />
       ))}
+      </Container>
     </Fragment>
   );
 };

@@ -1,10 +1,10 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { getProfileById } from "../../actions/profile";
 //import {deletePost} from "../../actions/post";
 import PostLike from "./PostLike";
+import { Link } from "react-router-dom";
 
 //Material UI
 import {
@@ -15,13 +15,19 @@ import {
   CardContent,
   Typography,
   CardActions,
-  IconButton,
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
+  cardStyle: {
+    marginTop: theme.spacing(3),
+  },
+
   large: {
     width: theme.spacing(7),
     height: theme.spacing(7),
+  },
+  linkStyling: {
+    textDecoration: "none",
   },
 }));
 
@@ -30,7 +36,7 @@ const PostItem = ({ post, auth }) => {
 
   return (
     <Fragment>
-      <Card>
+      <Card className={classes.cardStyle}>
         <CardHeader
           avatar={
             <Avatar
@@ -39,10 +45,22 @@ const PostItem = ({ post, auth }) => {
               className={classes.large}
             />
           }
-          title={post.name}
+          title={<Link
+            to={`/profile/${post.user}`}
+          >
+            <Typography  variant="inherit" className={classes.linkStyling}
+             color="textPrimary">{`${post.name}`}</Typography>
+          </Link>}
           titleTypographyProps={{ variant: "h6", color: "textPrimary" }}
-          subheaderTypographyProps={{ variant: "p" }}
-          subheader={`@${post.username}`}
+          subheaderTypographyProps={{ variant: "a" }}
+          subheader={
+            <Link
+              to={`/profile/${post.user}`}
+            >
+              <Typography  variant="inherit" className={classes.linkStyling}
+               color="textPrimary">{`@${post.username}`}</Typography>
+            </Link>
+          }
         />
         <CardContent>
           <Typography variant="p" color="textPrimary">
@@ -50,7 +68,7 @@ const PostItem = ({ post, auth }) => {
           </Typography>
         </CardContent>
         <CardActions>
-          <PostLike post={post}/>
+          <PostLike post={post} />
         </CardActions>
       </Card>
     </Fragment>

@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
+const NavBar = ({ auth, logout }) => {
   const classes = useStyles();
 
   const setTheme = () => {
@@ -28,6 +28,9 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
 
   const authLinks = (
     <Fragment>
+      <Button color="inherit" href={`/profile/`}>
+        My Profile
+      </Button>
       <Button color="inherit" href="/profiles">
         Profiles
       </Button>
@@ -65,8 +68,8 @@ const NavBar = ({ auth: { isAuthenticated, loading }, logout }) => {
         </Button>
 
         <div className={classes.align}></div>
-        {!loading && (
-          <Fragment>{isAuthenticated ? authLinks : guestLinks}</Fragment>
+        {!auth.loading && (
+          <Fragment>{auth.isAuthenticated ? authLinks : guestLinks}</Fragment>
         )}
         <Button variant="h6" color="inherit" onClick={setTheme}>
           Theme

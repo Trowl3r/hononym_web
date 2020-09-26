@@ -22,10 +22,13 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
-
   buttonImage: {
     marginTop: theme.spacing(1),
   },
+  containerSpacing: {
+    marginTop: theme.spacing(3),
+    marginBottom: theme.spacing(3)
+  }
 }));
 
 const CommentForm = ({ postId, addComment }) => {
@@ -34,7 +37,7 @@ const CommentForm = ({ postId, addComment }) => {
   const classes = useStyles();
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" className={classes.containerSpacing}>
       <Typography variant="h6">Leave a Comment</Typography>
       <form
         className={classes.form}
