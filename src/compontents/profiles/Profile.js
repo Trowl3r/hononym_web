@@ -4,9 +4,18 @@ import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
 import { getProfileById } from "../../actions/profile";
 import ProfileFollowing from "./ProfileFollowing";
+import ProfilePost from "./ProfilePosts";
 
 //Material UI
-import { Avatar, CardHeader, Container, Card, CardContent } from "@material-ui/core";
+import {
+  Avatar,
+  CardHeader,
+  Container,
+  Card,
+  CardContent,
+  Typography,
+  Divider,
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,21 +54,34 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
               <CardHeader
                 avatar={
                   <Avatar
-                    src={`http://localhost:5000/${profile.profileImage}`} alt={profile.name} className={classes.large}
+                    src={`http://localhost:5000/${profile.profileImage}`}
+                    alt={profile.name}
+                    className={classes.large}
                   />
                 }
-                action={<ProfileFollowing profile={profile} />}
-
+                action={
+                  auth.user._id !== profile.user._id ? (
+                    <ProfileFollowing profile={profile} />
+                  ) : null
+                }
                 classes={{ action: classes.action }}
-
-                titleTypographyProps={{variant: 'h6', color: "textPrimary"}}
+                titleTypographyProps={{ variant: "h6", color: "textPrimary" }}
                 title={profile.name}
-                subheaderTypographyProps={{variant: 'p'}}
+                subheaderTypographyProps={{ variant: "p" }}
                 subheader={`@${profile.user.username}`}
               />
+              <Divider />
               <CardContent>
-                 
+                <Typography variant="h6" color="textPrimary">
+                  Bio
+                </Typography>
+                <Typography variant="p" color="textPrimary">
+                  {profile.bio}
+                </Typography>
               </CardContent>
+              <Divider />
+
+              <ProfilePost id={profile.user._id} />
             </Card>
           </Container>
         </Fragment>

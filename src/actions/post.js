@@ -81,6 +81,22 @@ export const getPosts = () => async (dispatch) => {
   }
 };
 
+export const getProfilePostsById = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`/posts/profile/${id}`);
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
 export const getPost = (id) => async (dispatch) => {
   try {
     const res = await api.get(`/posts/post/${id}`);
@@ -152,18 +168,17 @@ export const likeComment = (postId, commentId) => async (dispatch) => {
 };
 
 //Unlike Comment
-export const unlikeComment = (postId, commentId) => async dispatch => {
+export const unlikeComment = (postId, commentId) => async (dispatch) => {
   try {
     const res = await api.post(`/posts/unlike-comment/${postId}/${commentId}`);
     dispatch({
       type: UPDATE_COMMENT_LIKES,
-      payload: {commentId, likes: res.data}
+      payload: { commentId, likes: res.data },
     });
-
-  }catch (err) {
+  } catch (err) {
     dispatch({
       type: POST_ERROR,
       payload: { msg: err.response.statusText, status: err.response.status },
     });
   }
-}
+};
