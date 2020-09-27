@@ -28,7 +28,7 @@ const NavBar = ({ auth, logout }) => {
 
   const authLinks = (
     <Fragment>
-      <Button color="inherit" href={`/profile/`}>
+      <Button color="inherit" href="/profile/me">
         My Profile
       </Button>
       <Button color="inherit" href="/profiles">

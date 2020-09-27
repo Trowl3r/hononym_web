@@ -2,7 +2,7 @@ import React, { useEffect, Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import Spinner from "../layout/Spinner";
-import { getProfileById } from "../../actions/profile";
+import { getCurrentProfile } from "../../actions/profile";
 import ProfileFollowing from "./ProfileFollowing";
 import ProfilePost from "./ProfilePosts";
 
@@ -37,10 +37,10 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
+const ProfileMe = ({ getCurrentProfile, profile: { profile }, auth }) => {
   useEffect(() => {
-    getProfileById(match.params.id);
-  }, [getProfileById, match.params.id]);
+    getCurrentProfile();
+  }, [getCurrentProfile]);
 
   const classes = useStyles();
 
@@ -119,8 +119,8 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
   );
 };
 
-Profile.propTypes = {
-  getProfileById: PropTypes.func.isRequired,
+ProfileMe.propTypes = {
+  getCurrentProfile: PropTypes.func.isRequired,
   profile: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
 };
@@ -130,4 +130,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getProfileById })(Profile);
+export default connect(mapStateToProps, { getCurrentProfile })(ProfileMe);

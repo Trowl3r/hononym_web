@@ -16,6 +16,8 @@ import Group from "../groups/Group";
 import Groups from './../groups/Groups';
 import ProfileImage from './../profiles/ProfileImage';
 import GroupImage from './../groups/GroupImage';
+import ProfileMe from "../profiles/ProfileMe";
+
 
 //Private Route
 import PrivateRoute from "./PrivateRoute";
@@ -29,6 +31,7 @@ const Routes = (props) => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/profiles" component={Profiles} />
         <Route exact path="/groups" component={Groups} />
+        <PrivateRoute exact path="/profile/me" component={ProfileMe} />
         <PrivateRoute exact path="/profile/:id" component={Profile} />
         <PrivateRoute exact path="/create-profile" component={ProfileForm} />
         <PrivateRoute exact path="/edit-profile" component={ProfileForm} />
