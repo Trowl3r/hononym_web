@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { deleteGroupPost } from "../../actions/post";
@@ -37,7 +37,7 @@ const GroupPostItem = ({ post, auth, deleteGroupPost, group_id }) => {
   return (
     <Fragment>
       <Card className={classes.cardStyle}>
-        <Link style={{ textDecoration: "none" }} to={`/group/post/${post._id}`}>
+        <Link style={{ textDecoration: "none" }} to={`/group/post/${group_id}/${post._id}`}>
           <CardHeader
             avatar={
               <Avatar

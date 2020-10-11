@@ -11,14 +11,14 @@ import Profile from "../profiles/Profile";
 import Profiles from "../profiles/Profiles";
 import Posts from "../posts/Posts";
 import Post from "../posts/Post";
-import GroupForm from '../groups/GroupForm';
+import GroupForm from "../groups/GroupForm";
 import Group from "../groups/Group";
-import Groups from './../groups/Groups';
-import ProfileImage from './../profiles/ProfileImage';
-import GroupImage from './../groups/GroupImage';
+import Groups from "./../groups/Groups";
+import ProfileImage from "./../profiles/ProfileImage";
+import GroupImage from "./../groups/GroupImage";
 import ProfileMe from "../profiles/ProfileMe";
 import Settings from "../layout/Settings";
-
+import GroupPost from "../groups/GroupPost";
 
 //Private Route
 import PrivateRoute from "./PrivateRoute";
@@ -41,8 +41,13 @@ const Routes = (props) => {
         <PrivateRoute exact path="/posts" component={Posts} />
         <PrivateRoute exact path="/post/:id" component={Post} />
         <PrivateRoute exact path="/group/:id" component={Group} />
+        <PrivateRoute
+          exact
+          path="/group/post/:group_id/:id"
+          component={GroupPost}
+        />
         <PrivateRoute exact path="/create-group" component={GroupForm} />
-        <PrivateRoute exact path="/group-image/:id" component={GroupImage} /> 
+        <PrivateRoute exact path="/group-image/:id" component={GroupImage} />
       </Switch>
     </Container>
   );
