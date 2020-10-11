@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { getProfilePostsById } from "../../actions/post";
 import PropTypes from "prop-types";
 import PostItem from "../posts/PostItem";
-import { Link } from "react-router-dom";
 
 const ProfilePost = ({ getProfilePostsById, post: { posts }, id }) => {
   useEffect(() => {
@@ -13,9 +12,7 @@ const ProfilePost = ({ getProfilePostsById, post: { posts }, id }) => {
   return (
     <Fragment>
       {posts.map((post) => (
-        <Link style={{ textDecoration: "none" }} to={`/post/${post._id}`}>
-          <PostItem key={post._id} post={post} />
-        </Link>
+        <PostItem key={post._id} post={post} />
       ))}
     </Fragment>
   );

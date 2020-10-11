@@ -4,15 +4,24 @@ import Spinner from "../layout/Spinner";
 import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { getGroupById } from "../../actions/group";
+import GroupLayout from "./GroupLayout";
+import GroupPostForm from "./GroupPostForm";
+import GroupPosts from "./GroupPosts";
 
 //Material Ui
 import { Container } from "@material-ui/core";
 
-const Group = ({ getGroupById, group: { group }, loading, auth, match }) => {
+const Group = ({
+  getGroupById,
+  group: { group },
+  post: { posts },
+  loading,
+  auth,
+  match,
+}) => {
   useEffect(() => {
     getGroupById(match.params.id);
   }, [getGroupById, match.params.id]);
-
 
   return loading || group === null ? (
     <Spinner />
@@ -25,19 +34,20 @@ const Group = ({ getGroupById, group: { group }, loading, auth, match }) => {
           <Redirect to="/create-group" />
         ) : (
           <Fragment>
-          {" "}
-          <h1>{group.name}</h1>
-          <p>{group.desc}</p>
-          <p>{group.members.length}</p>
-        </Fragment>
+            <GroupLayout group={group} posts={posts} />
+            <GroupPostForm id={match.params.id} />
+          </Fragment>
         )
+      ) : !group.members.some(
+          (member) => member.user.toString() === auth.user._id
+        ) ? (
+        <GroupLayout group={group} posts={posts} />
       ) : (
         <Fragment>
-        {" "}
-        <h1>{group.name}</h1>
-        <p>{group.desc}</p>
-        <p>{group.members.length}</p>
-      </Fragment>
+          <GroupLayout group={group} posts={posts} />
+          <GroupPostForm id={match.params.id} />
+          <GroupPosts id={match.params.id} />
+        </Fragment>
       )}
     </Container>
   );
@@ -52,6 +62,7 @@ Group.propTypes = {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   group: state.group,
+  post: state.post,
 });
 
 export default connect(mapStateToProps, { getGroupById })(Group);

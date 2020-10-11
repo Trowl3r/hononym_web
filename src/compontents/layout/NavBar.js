@@ -19,10 +19,10 @@ const NavBar = ({ auth, logout }) => {
   const classes = useStyles();
 
   const setTheme = () => {
-    localStorage.getItem("theme") === "light" ||
+    localStorage.getItem("theme") === "dark" ||
     localStorage.getItem("theme") === null
-      ? localStorage.setItem("theme", "dark")
-      : localStorage.setItem("theme", "light");
+      ? localStorage.setItem("theme", "light")
+      : localStorage.setItem("theme", "dark");
     window.location.reload();
   };
 

@@ -1,9 +1,8 @@
 import React, { Fragment, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getProfileById } from "../../actions/profile";
-import { deletePost } from "../../actions/post";
-import PostLike from "./PostLike";
+import { deleteGroupPost } from "../../actions/post";
+import PostLike from "../posts/PostLike";
 import { Link } from "react-router-dom";
 
 //Material UI
@@ -32,13 +31,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const PostItem = ({ post, auth, deletePost, getProfileById }) => {
+const GroupPostItem = ({ post, auth, deleteGroupPost, group_id }) => {
   const classes = useStyles();
 
   return (
     <Fragment>
       <Card className={classes.cardStyle}>
-        <Link style={{ textDecoration: "none" }} to={`/post/${post._id}`}>
+        <Link style={{ textDecoration: "none" }} to={`/group/post/${post._id}`}>
           <CardHeader
             avatar={
               <Avatar
@@ -77,7 +76,7 @@ const PostItem = ({ post, auth, deletePost, getProfileById }) => {
         <CardActions>
           <PostLike post={post} />
           {!auth.loading && post.user === auth.user._id && (
-            <Button onClick={() => deletePost(post._id)}>Delete</Button>
+            <Button onClick={() => deleteGroupPost(group_id, post._id)}>Delete</Button>
           )}
         </CardActions>
       </Card>
@@ -85,11 +84,11 @@ const PostItem = ({ post, auth, deletePost, getProfileById }) => {
   );
 };
 
-PostItem.propTypes = {
+GroupPostItem.propTypes = {
   post: PropTypes.object.isRequired,
   auth: PropTypes.object.isRequired,
-  deletePost: PropTypes.func.isRequired,
-  getProfileById: PropTypes.func.isRequired,
+  deleteGroupPost: PropTypes.func.isRequired,
+  group_id: PropTypes.any.isRequired
 };
 
 const mapStateToProps = (state) => ({
@@ -97,6 +96,6 @@ const mapStateToProps = (state) => ({
   profile: state.profile,
 });
 
-export default connect(mapStateToProps, { getProfileById, deletePost })(
-  PostItem
+export default connect(mapStateToProps, { deleteGroupPost })(
+  GroupPostItem
 );

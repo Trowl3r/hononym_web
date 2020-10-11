@@ -15,7 +15,8 @@ import {
   CardContent,
   Typography,
   Divider,
-  Grid
+  Grid,
+  Button
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -37,7 +38,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
+const Profile = ({
+  getProfileById,
+  profile: { profile },
+  post: { posts },
+  auth,
+  match,
+}) => {
   useEffect(() => {
     getProfileById(match.params.id);
   }, [getProfileById, match.params.id]);
@@ -63,7 +70,7 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
                 action={
                   auth.user._id !== profile.user._id ? (
                     <ProfileFollowing profile={profile} />
-                  ) : null
+                  ) : <Button variant="contained" color="primary" href="/profile/settings">Settings</Button>
                 }
                 classes={{ action: classes.action }}
                 titleTypographyProps={{ variant: "h6", color: "textPrimary" }}
@@ -72,16 +79,22 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
                 subheader={`@${profile.user.username}`}
               />
               <CardContent>
-                <Grid>
-                  <Grid item xs="4">
+                <Grid
+                  container
+                  spacing={1}
+                  direction="row"
+                  justify="center"
+                  alignItems="center"
+                >
+                  <Grid item xs="3">
                     <Typography variant="h6" color="textPrimary">
-                      num
+                      {posts.length}
                     </Typography>
                     <Typography variant="p" color="textPrimary">
                       posts
                     </Typography>
                   </Grid>
-                  <Grid item xs="4">
+                  <Grid item xs="3">
                     <Typography variant="h6" color="textPrimary">
                       {profile.follower.length}
                     </Typography>
@@ -89,7 +102,7 @@ const Profile = ({ getProfileById, profile: { profile }, auth, match }) => {
                       Follower
                     </Typography>
                   </Grid>
-                  <Grid item xs="4">
+                  <Grid item xs="3">
                     <Typography variant="h6" color="textPrimary">
                       {profile.following.length}
                     </Typography>
@@ -128,6 +141,7 @@ Profile.propTypes = {
 const mapStateToProps = (state) => ({
   profile: state.profile,
   auth: state.auth,
+  post: state.post,
 });
 
 export default connect(mapStateToProps, { getProfileById })(Profile);

@@ -9,6 +9,7 @@ import {
   ADD_COMMENT,
   REMOVE_COMMENT,
   UPDATE_COMMENT_LIKES,
+  DELETE_POST,
 } from "./types";
 
 export const addPost = (formData) => async (dispatch) => {
@@ -73,6 +74,22 @@ export const getPosts = () => async (dispatch) => {
       type: GET_POSTS,
       payload: res.data,
     });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const deletePost = (id) => async (dispatch) => {
+  try {
+    await api.delete(`/posts/delete/${id}`);
+
+    dispatch({
+      type: DELETE_POST,
+      payload: id,
+    })
   } catch (err) {
     dispatch({
       type: POST_ERROR,
@@ -182,3 +199,54 @@ export const unlikeComment = (postId, commentId) => async (dispatch) => {
     });
   }
 };
+
+export const createGroupPost = (text, id) => async (dispatch) => {
+  try {
+    const res = await api.post(`/groups/group-post/${id}`, text);
+
+    dispatch({
+      type: ADD_POST,
+      payload: res.data,
+    });
+
+    dispatch(setAlert("Post Created", "success"));
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+export const getGroupPosts = (id) => async (dispatch) => {
+  try {
+    const res = await api.get(`groups/get-group-posts/${id}`);
+
+    dispatch({
+      type: GET_POSTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+};
+
+
+export const deleteGroupPost = (groupId, id) => async (dispatch) => {
+  try {
+    const res = api.delete(`groups/delete-group-post/${groupId}/${id}`);
+
+    dispatch({
+      type: DELETE_POST,
+      payload: id
+    });
+  } catch(err) {
+    dispatch({
+      type: POST_ERROR,
+      payload: { msg: err.response.statusText, status: err.response.status },
+    });
+  }
+}

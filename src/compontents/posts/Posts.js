@@ -19,9 +19,7 @@ const Posts = ({ getPosts, post: { posts } }) => {
       <Typography variant="h6">Posts</Typography>
       <PostForm />
       {posts.map((post) => (
-        <Link style={{textDecoration: "none"}} to={`/post/${post._id}`}>
           <PostItem key={post._id} post={post} />
-        </Link>
       ))}
     </Container>
   );
